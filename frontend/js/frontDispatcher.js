@@ -1,4 +1,5 @@
 //frontDispatcher_2.0
+import { initSubjectsModal, mostrarMaterias } from './studentSubjects.js';
 //const API_URL = '../backend/server.php/students';
 const API_URL = '../backend/server.php?resource=students';
 
@@ -10,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () =>
     const emailInput = document.getElementById('email');
     const ageInput = document.getElementById('age');
     const studentIdInput = document.getElementById('studentId');
+    ///Modal de materias
+    const subjectsModalController = initSubjectsModal('subjectsModal', 'closeSubjectsModal', 'subjectsContent');
 
     // Leer todos los estudiantes al cargar
     fetchStudents();
@@ -76,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () =>
                 tdAge.textContent = student.age;
 
                 const tdActions = document.createElement('td');
+
                 const editBtn = document.createElement('button');
                 editBtn.textContent = 'Editar';
                 editBtn.classList.add('w3-button', 'w3-blue', 'w3-small', 'w3-margin-right');
@@ -88,11 +92,19 @@ document.addEventListener('DOMContentLoaded', () =>
 
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Borrar';
-                deleteBtn.classList.add('w3-button', 'w3-red', 'w3-small');
+                deleteBtn.classList.add('w3-button', 'w3-red', 'w3-small', 'w3-margin-right');
                 deleteBtn.onclick = () => deleteStudent(student.id);
+                
+                const subjectsBtn = document.createElement('button');
+                subjectsBtn.textContent = 'Materias';
+                subjectsBtn.classList.add('w3-button', 'w3-yellow', 'w3-small', 'w3-margin-right');
+                subjectsBtn.onclick = () => {
+                    mostrarMaterias(student.id);
+                }
 
                 tdActions.appendChild(editBtn);
                 tdActions.appendChild(deleteBtn);
+                tdActions.appendChild(subjectsBtn);
 
                 tr.appendChild(tdName);
                 tr.appendChild(tdEmail);

@@ -23,6 +23,21 @@ CREATE TABLE IF NOT EXISTS students (
     age INT NOT NULL
 ) ENGINE=INNODB;
 
+CREATE TABLE subjects {
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+}
+
+CREATE TABLE student_subject (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    subject_id INT NOT NULL,
+    grade DECIMAL(3,1),
+    UNIQUE (student_id, subject_id),
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE CASCADE ON UPDATE CASCADE,
+);
+
 -- Insertar algunos datos de prueba
 INSERT INTO students (fullname, email, age) VALUES
 ('Ana García', 'ana@example.com', 21),

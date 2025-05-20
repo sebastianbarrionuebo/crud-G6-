@@ -8,6 +8,15 @@
         case 'GET':
             handleGetS($conn);
             break;
+        case 'POST':
+            handlePostS($conn);
+            break;
+        case 'PUT':
+            handlePutS($conn);
+            break;
+        case 'DELETE':
+            handleDeleteS($conn);
+            break;
         default:
             http_response_code(405);
             echo json_encode(["error" => "Método no permitido"]);

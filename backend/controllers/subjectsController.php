@@ -11,7 +11,11 @@
                 la devuelve como un arreglo asociativo.
                 Los nombres de las columnas en la base de datos serán las claves del arreglo.*/
             /*echo: Envía ese JSON al navegador, cliente o donde se haya hecho la petición.*/
-            echo json_encode($result->fetch_assoc());
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+            echo json_encode($data);
         }else{
             // Intentar obtener las materias
             $result = getAllSubjects($conn);  // Obtiene las materias
@@ -36,6 +40,36 @@
             
             // Enviar la respuesta JSON
             echo json_encode($data);
+        }
+    }
+
+    function handlePostS($conn) {
+        $input = json_decode(file_get_contents("php://input"), true);
+        if (createStudent($conn, $input['student_id'], $input['subject_id'], $input['grade'])) {
+            echo json_encode(["message" => "Materia agregada al estudiante correctamente"]);
+        } else {
+            http_response_code(500);
+            echo json_encode(["error" => "No se pudo agregar la materia"]);
+        }
+    }
+
+    function handlePutS($conn) {
+        $input = json_decode(file_get_contents("php://input"), true);
+        if (updateStudent($conn, $input['id'], $input['student_id'], $input['subject_id'], $input['grade'])) {
+            echo json_encode(["message" => "Actualizado correctamente"]);
+        } else {
+            http_response_code(500);
+            echo json_encode(["error" => "No se pudo actualizar"]);
+        }
+    }
+
+    function handleDeleteS($conn) {
+        $input = json_decode(file_get_contents("php://input"), true);
+        if (deleteStudent($conn, $input['id'])) {
+            echo json_encode(["message" => "Eliminado correctamente"]);
+        } else {
+            http_response_code(500);
+            echo json_encode(["error" => "No se pudo eliminar"]);
         }
     }
 ?>
