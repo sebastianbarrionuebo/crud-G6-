@@ -54,6 +54,9 @@
             case 'students':
                 require_once('./routes/studentsRoutes.php');
                 exit;
+            case 'studentSubject':
+                require_once('./routes/studentSubjectRoutes.php');
+                exit;
             case 'subjects':
                 require_once('./routes/subjectsRoutes.php');
                 exit;

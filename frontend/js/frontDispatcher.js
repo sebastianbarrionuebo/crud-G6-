@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () =>
     const ageInput = document.getElementById('age');
     const studentIdInput = document.getElementById('studentId');
     ///Modal de materias
-    const subjectsModalController = initSubjectsModal('subjectsModal', 'closeSubjectsModal', 'subjectsContent');
+    ///const subjectsModalController = initSubjectsModal('subjectsModal', 'closeSubjectsModal', 'subjectsContent');
 
     // Leer todos los estudiantes al cargar
     fetchStudents();
@@ -100,6 +100,8 @@ document.addEventListener('DOMContentLoaded', () =>
                 subjectsBtn.classList.add('w3-button', 'w3-yellow', 'w3-small', 'w3-margin-right');
                 subjectsBtn.onclick = () => {
                     mostrarMaterias(student.id);
+                    studentIdInput.value = studentId;
+
                 }
 
                 tdActions.appendChild(editBtn);
